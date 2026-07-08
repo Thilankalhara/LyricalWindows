@@ -19,21 +19,10 @@ and Windows 10 themes.
 
 > Place your screenshots inside `assets/screenshots/`
 
-### Windows 95
+### 01
 
-![Windows 95](assets/screenshots/win95-theme.png)
+![1](assets/screenshots/Capture.PNG)
 
-### Windows XP
-
-![Windows XP](assets/screenshots/winxp-theme.png)
-
-### macOS Glass
-
-![macOS Glass](assets/screenshots/macos-theme.png)
-
-### Windows 10
-
-![Windows 10](assets/screenshots/win10-theme.png)
 
 ------------------------------------------------------------------------
 
