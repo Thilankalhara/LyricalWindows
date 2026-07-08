@@ -51,12 +51,6 @@ beat drop, happy).
 
 Keep `index.html`, `style.css`, and `script.js` in the same folder — the HTML links to the other two by relative path.
 
-## 🚀 Deploy for free (GitHub Pages)
-
-1. Push this repo to GitHub (public repo).
-2. Go to **Settings → Pages**.
-3. Set source to the `main` branch, root folder.
-4. Save — your site goes live at `https://<your-username>.github.io/<repo-name>/`.
 
 ## 🛠️ How it works
 
