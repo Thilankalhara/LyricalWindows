@@ -1,0 +1,25 @@
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+npm-debug.log*
+
+# Env / secrets (this project doesn't need any API keys, but just in case)
+.env
+.env.local
+
+# Dependency folders (only relevant if you ever add tooling later)
+node_modules/
+
+# Local build/output junk
+dist/
+build/
+*.zip

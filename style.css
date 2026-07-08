@@ -1,0 +1,159 @@
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: #0b0f19;
+    background-image: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #020617 100%);
+    color: #f8fafc;
+    overflow-x: hidden;
+}
+.retro-font {
+    font-family: 'VT323', monospace;
+}
+.mono-font {
+    font-family: 'Share Tech Mono', monospace;
+}
+
+/* Custom Windows Styles */
+.win95 {
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #fff #808080 #808080 #fff;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+    color: #000;
+}
+.win95-title {
+    background: linear-gradient(90deg, #000080, #1084d0);
+    color: #fff;
+    font-family: 'Tahoma', sans-serif;
+    font-weight: bold;
+}
+.win95-btn {
+    background: #c0c0c0;
+    border: 1px solid;
+    border-color: #fff #404040 #404040 #fff;
+    box-shadow: inset 1px 1px 0px #fff;
+}
+/* FIX: was missing - buttons never showed a pressed state on click */
+.win95-btn:active {
+    border-color: #404040 #fff #fff #404040;
+    box-shadow: inset -1px -1px 0px #fff;
+}
+
+/* WinXP Theme styling */
+.winXP {
+    background: #fbfaf0;
+    border: 3px solid #0053e2;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.6);
+}
+.winXP-title {
+    background: linear-gradient(180deg, #0053e2 0%, #0a6cff 10%, #0053e2 100%);
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+
+/* MacOS Glassmorphism style variations */
+.winMac {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* Windows 10 Clean Grid */
+.win10 {
+    background: rgba(20, 20, 20, 0.85);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #fff;
+}
+.win10-title {
+    background: #111;
+    color: #fff;
+}
+
+/* Animation Entry */
+@keyframes popup-intro {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.popup-enter {
+    animation: popup-intro 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards;
+}
+
+/* FIX: script.js adds this class in closePopupWindow() but it never existed in this CSS,
+   so popups just vanished the instant you clicked X/OK instead of fading out smoothly. */
+.popup-exit {
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.4, 0, 1, 1);
+    opacity: 0 !important;
+    transform: scale(0.85) translateY(10px) !important;
+}
+
+/* Emotional Modifiers */
+.heart-theme {
+    background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
+    border: 2px solid #f43f5e !important;
+    border-radius: 12px;
+}
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+.bounce-anim {
+    animation: bounce 0.5s ease infinite;
+}
+
+@keyframes fade-out {
+    0% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(10px); }
+}
+.fade-out-anim {
+    animation: fade-out 5s ease-in forwards;
+}
+
+@keyframes screen-shake-slow {
+    0%, 100% { transform: translate(0,0); }
+    25% { transform: translate(-2px, 1px); }
+    50% { transform: translate(2px, -1px); }
+    75% { transform: translate(-1px, 1px); }
+}
+.screen-shake-anim {
+    animation: screen-shake-slow 0.5s ease-in-out 2;
+}
+
+/* --- Dynamic Particle Animations --- */
+@keyframes particle-float-up {
+    0% { transform: translateY(0) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translateY(-120px) translateX(var(--drift-x, 15px)) scale(1.1); opacity: 0; }
+}
+.float-up {
+    animation: particle-float-up 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes particle-drift-down {
+    0% { transform: translateY(-20px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translateY(120px) translateX(var(--drift-x, -15px)) scale(1); opacity: 0; }
+}
+.drift-down {
+    animation: particle-drift-down 2.2s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+
+@keyframes particle-jitter-burst {
+    0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+    15% { opacity: 1; }
+    100% { transform: translate(calc(var(--drift-x) * 1.5), -60px) scale(1); opacity: 0; }
+}
+.jitter-burst {
+    animation: particle-jitter-burst 1.5s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+.glass {
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}

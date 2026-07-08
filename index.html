@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LyricalWindows - Synced Retro Pop-up Player</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Font Family -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Outfit:wght@300;400;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- Top Navigation Bar -->
+    <header class="glass sticky top-0 z-50 px-6 py-4 border-b border-white/10">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-gradient-to-tr from-indigo-500 to-pink-500 rounded-lg shadow-lg">
+                    <i data-lucide="layers" class="w-6 h-6 text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-pink-300 bg-clip-text text-transparent">LyricalWindows</h1>
+                    <p class="text-xs text-indigo-400">Developed by <span class="font-semibold text-pink-400">Thilan Kalhara</span></p>
+                </div>
+            </div>
+
+            <!-- Support link only (daily limit bar removed) -->
+            <div class="flex items-center gap-4 bg-black/40 px-4 py-2 rounded-full border border-white/5 text-sm">
+                <a href="https://ko-fi.com/thilankalhara" target="_blank" class="flex items-center gap-1.5 text-xs font-bold text-amber-400 hover:text-amber-300 transition-all">
+                    <i data-lucide="coffee" class="w-4 h-4"></i> Support Me
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="max-w-7xl mx-auto w-full px-4 py-8 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left Side: Controls & Video Setup (5 Columns) -->
+        <section class="lg:col-span-5 flex flex-col gap-6">
+
+            <!-- Lyrics Sync Timeline -->
+            <div class="glass rounded-2xl p-6 shadow-2xl">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-lg font-semibold flex items-center gap-2">
+                        <i data-lucide="edit-3" class="text-cyan-400"></i> Lyrics Sync Timeline
+                    </h3>
+                    <span class="text-xs font-mono text-cyan-400">Custom Timestamp Mode</span>
+                </div>
+
+                <textarea id="lyrics-input" rows="8" class="w-full bg-black/60 border border-white/10 rounded-xl p-3 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500 transition-all leading-relaxed mb-3" placeholder="Your synced lyrics will appear here after you fetch a song below."></textarea>
+
+                <!-- Free Lyrics Auto-Fetch (lyrics.ovh, no API key needed) -->
+                <div class="bg-black/30 border border-cyan-500/20 rounded-xl p-3">
+                    <p class="text-[10px] font-bold text-cyan-400 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+                        <i data-lucide="search" class="w-3 h-3"></i> Find Your Song
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-2 mb-2">
+                        <input id="fetch-artist" type="text" placeholder="Artist" class="flex-1 min-w-0 bg-black/60 border border-white/10 rounded-lg px-3 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-all">
+                        <input id="fetch-title" type="text" placeholder="Song title" class="flex-1 min-w-0 bg-black/60 border border-white/10 rounded-lg px-3 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-all">
+                    </div>
+                   
+                    <button id="fetch-lyrics-btn" class="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed text-white text-xs font-bold px-4 py-2.5 rounded-lg shadow-lg transition-all flex items-center justify-center gap-1.5 mb-2">
+                        <i data-lucide="download" class="w-3.5 h-3.5"></i> Fetch Synced Lyrics
+                    </button>
+
+                    
+                    <input id="yt-url-input" type="text" placeholder="Paste a YouTube or Spotify track link" class="w-full bg-black/60 border border-white/10 rounded-lg px-3 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-all mb-2">
+                    <p class="text-[10px] text-slate-500 -mt-1 mb-2">Tip: Spotify tends to actually play more reliably than YouTube, since it's built for embedding. Free/no-login gives a 30s preview; logged into Spotify in this browser gives the full track.</p>
+
+                    <button id="start-btn" disabled class="w-full opacity-40 cursor-not-allowed bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-medium text-sm py-3 px-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="play-circle" class="w-4 h-4"></i> Start
+                    </button>
+                </div>
+            </div>
+
+            <!-- Style Customizer & Theme Switcher -->
+            <div class="glass rounded-2xl p-6 shadow-2xl">
+                <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <i data-lucide="palette" class="text-pink-400"></i> Desktop Window Style
+                </h3>
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <button onclick="setTheme('win95')" class="theme-btn border-2 border-indigo-500/20 hover:border-indigo-500 bg-black/40 p-3 rounded-xl text-left transition-all flex flex-col justify-between h-20">
+                        <span class="text-xs text-slate-400">Classic</span>
+                        <span class="font-bold text-sm tracking-wide text-white">Windows 95</span>
+                    </button>
+                    <button onclick="setTheme('winXP')" class="theme-btn border-2 border-indigo-500/20 hover:border-indigo-500 bg-black/40 p-3 rounded-xl text-left transition-all flex flex-col justify-between h-20">
+                        <span class="text-xs text-slate-400">Fisher-Price Blue</span>
+                        <span class="font-bold text-sm tracking-wide text-white">Windows XP</span>
+                    </button>
+                    <button onclick="setTheme('winMac')" class="theme-btn border-2 border-indigo-500/20 hover:border-indigo-500 bg-black/40 p-3 rounded-xl text-left transition-all flex flex-col justify-between h-20">
+                        <span class="text-xs text-slate-400">Aero Glass Acrylic</span>
+                        <span class="font-bold text-sm tracking-wide text-white">macOS Glass</span>
+                    </button>
+                    <button onclick="setTheme('win10')" class="theme-btn border-2 border-indigo-500/20 hover:border-indigo-500 bg-black/40 p-3 rounded-xl text-left transition-all flex flex-col justify-between h-20">
+                        <span class="text-xs text-slate-400">Modern Dark</span>
+                        <span class="font-bold text-sm tracking-wide text-white">Windows 10/11</span>
+                    </button>
+                </div>
+                <div class="bg-indigo-500/10 border border-indigo-500/20 rounded-xl p-3 flex gap-3 items-start">
+                    <i data-lucide="info" class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5"></i>
+                    <p class="text-xs text-indigo-200 leading-relaxed">
+                        Pop-up window animations intelligently morph according to the lyrics content! Try typing phrases like "love you", "sad", "drop the beat", "error", or whisper with small letters!
+                    </p>
+                </div>
+            </div>
+
+<!-- How It Works Explainer -->
+<div class="glass rounded-2xl p-6 shadow-2xl">
+    <h3 class="text-md font-semibold mb-3 flex items-center gap-2">
+        <i data-lucide="help-circle" class="text-amber-400"></i> How LyricalWindows Works
+    </h3>
+    <ol class="space-y-2.5 text-xs text-slate-300 mb-4">
+        <li class="flex gap-2"><span class="font-bold text-indigo-400">1.</span> Type the artist and song title.</li>
+        <li class="flex gap-2"><span class="font-bold text-indigo-400">2.</span> Paste a YouTube or Spotify track link — it loads as a real, playable background track (no downloads, no server needed). Spotify tends to actually play more reliably, since YouTube blocks embedding on a lot of videos.</li>
+        <li class="flex gap-2"><span class="font-bold text-indigo-400">3.</span> Auto-fetch the lyrics (or type them in), then tag each line with a timestamp and a mood (love, sad, angry, quiet, beatdrop, happy).</li>
+        <li class="flex gap-2"><span class="font-bold text-indigo-400">4.</span> Hit Play — retro OS-style windows pop up in sync, each themed and animated to match the mood of that line.</li>
+    </ol>
+
+    <!-- TUTORIAL VIDEO -->
+    <div class="relative aspect-video w-full rounded-xl overflow-hidden border border-white/10 bg-black isolate">
+
+        <video
+            id="tutorial-video"
+            class="w-full h-full relative z-0"
+            preload="metadata"
+            playsinline
+        >
+            <source src="assets/tutorial.mp4" type="video/mp4">
+            Your browser doesn't support HTML5 video.
+        </video>
+
+        <button
+            id="tutorial-play-btn"
+            type="button"
+            class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/40 hover:bg-black/60 transition pointer-events-auto cursor-pointer">
+
+            <div class="w-16 h-16 rounded-full bg-indigo-600 flex items-center justify-center pointer-events-none">
+                <i data-lucide="play" class="w-8 h-8 text-white fill-white ml-1"></i>
+            </div>
+
+            <p class="text-white mt-3 font-bold pointer-events-none">
+                Watch Tutorial
+            </p>
+
+        </button>
+
+    </div>
+</div>
+        </section>
+
+        <!-- Right Side: Live Visualizer & Dynamic Desktop Screen (7 Columns) -->
+        <section class="lg:col-span-7 flex flex-col gap-6">
+
+            <!-- Active Song Player & Timeline Status -->
+            <div class="glass rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                <div class="flex items-center justify-between flex-wrap gap-4 mb-4">
+                    <div class="flex items-center gap-3">
+                        <div id="status-spinner" class="w-3 h-3 rounded-full bg-slate-500"></div>
+                        <div>
+                            <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest block">Now Playing</span>
+                            <h2 id="current-track-title" class="text-xl font-bold tracking-tight text-white">No Track Loaded</h2>
+                            <p id="yt-status" class="text-[11px] text-slate-400 mt-0.5"></p>
+                            <!-- Was referenced in script.js but never existed in the DOM - restored so the
+                                 "connecting..." indicator actually shows during load. -->
+                            <div id="loading-pulse-track" class="hidden mt-1 h-1 w-32 rounded-full bg-white/10 overflow-hidden">
+                                <div class="h-full w-1/3 bg-indigo-400 animate-pulse rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Audio Control Buttons -->
+                    <div class="flex items-center gap-2 bg-white/5 p-1 rounded-xl border border-white/5">
+                        <button id="play-pause-btn" class="p-2.5 hover:bg-white/10 active:scale-95 text-indigo-300 rounded-lg transition-all" title="Play / Pause">
+                            <i data-lucide="play" class="w-5 h-5"></i>
+                        </button>
+                        <button id="reset-btn" class="p-2.5 hover:bg-white/10 active:scale-95 text-indigo-300 rounded-lg transition-all" title="Restart track">
+                            <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Custom Progress Bar (Requirement) -->
+                <div class="space-y-1">
+                    <div class="flex justify-between text-xs font-mono text-slate-400">
+                        <span id="current-time">00:00</span>
+                        <span id="total-duration">00:30</span>
+                    </div>
+                    <div id="progress-bar-container" class="w-full h-3 bg-black/60 rounded-full overflow-hidden cursor-pointer relative border border-white/5">
+                        <div id="progress-bar" class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 w-0 transition-all duration-100"></div>
+                    </div>
+                </div>
+
+                <!-- Spotify's own embed widget renders here when a Spotify track link is loaded.
+                     Empty/collapsed otherwise (YouTube mode doesn't use this). -->
+                <div id="spotify-embed-container" class="mt-4 rounded-xl overflow-hidden"></div>
+            </div>
+
+            <!-- The Desktop Screen Area (Simulates Pop-ups overlay) -->
+            <div id="desktop-screen" class="relative w-full aspect-[4/3] bg-slate-900 rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex flex-col justify-between p-4" style="background-image: radial-gradient(circle at 10% 20%, rgba(4, 4, 15, 1) 0%, rgba(20, 24, 82, 0.9) 90%);">
+                
+                <!-- Desktop background aesthetic hints (matrix code lines, retro grids) -->
+                <div class="absolute inset-0 opacity-10 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%]"></div>
+                
+                <!-- Top Indicator info -->
+                <div class="relative z-10 flex justify-between items-center text-xs font-mono text-slate-400">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-pink-500 animate-ping"></span>
+                        <span class="text-pink-400 font-bold uppercase tracking-wide">Live Popups Sandbox</span>
+                    </div>
+                    <button id="clear-desktop-btn" class="hover:text-white transition-colors bg-white/5 px-2 py-1 rounded">Clear All</button>
+                </div>
+
+                <!-- POP-UP CANVAS CONTAINER (Where dynamic synced windows appear) -->
+                <div id="desktop-canvas" class="absolute inset-0 pointer-events-none p-6 flex items-center justify-center">
+                    
+                    <!-- Fallback idle window -->
+                    <div id="idle-win" class="pointer-events-auto win95 w-80 p-1 select-none shadow-xl transform transition-transform">
+                        <div class="win95-title px-2 py-0.5 flex justify-between items-center text-xs">
+                            <span class="flex items-center gap-1"><i data-lucide="music-4" class="w-3.5 h-3.5"></i> LyricalWindows.exe</span>
+                            <button class="win95-btn px-1.5 py-0.5 text-[9px] font-bold">X</button>
+                        </div>
+                        <div class="p-4 text-center bg-[#c0c0c0] text-black">
+                            <p class="text-sm font-bold mb-3">Load a YouTube Track to start the visual popups!</p>
+                            <p class="text-xs text-zinc-700">Lyrics Windows XP/95/Mac styles will overlay automatically matched with track tempo and vibe.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Footer style prompt overlay mimic -->
+                <div class="relative z-10 flex justify-between items-center text-[10px] font-mono text-indigo-300 bg-black/40 px-3 py-1.5 rounded-lg border border-white/5">
+                    <span>Active Theme: <span id="current-theme-lbl" class="font-bold text-white">Windows 95</span></span>
+                    <span>Emotion Trigger Matrix Active</span>
+                </div>
+            </div>
+
+            <!-- Background Track Player - its own nicely-framed retro-window card, sitting -->
+            <div class="glass rounded-2xl p-3 shadow-2xl flex items-center gap-3">
+                <div id="yt-player-wrap" class="w-32 sm:w-40 aspect-video rounded-lg overflow-hidden border-2 border-white/15 shadow-lg bg-black flex-shrink-0">
+                    <div id="yt-player" class="w-full h-full"></div>
+                </div>
+                <div class="min-w-0">
+                    <p class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest">Background Track</p>
+                    <p class="text-xs text-slate-300 truncate">Streams quietly behind the pop-ups — sound plays here.</p>
+                </div>
+            </div>
+
+            <!-- Visual Explainer of Lyric Animations (Interactive Legend) -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <div class="glass p-3 rounded-xl border border-rose-500/20 flex items-center gap-3">
+                    <span class="text-2xl">❤️</span>
+                    <div>
+                        <h4 class="text-xs font-bold text-rose-300">Love Words</h4>
+                        <p class="text-[10px] text-slate-400">Heart-shaped style</p>
+                    </div>
+                </div>
+                <div class="glass p-3 rounded-xl border border-sky-500/20 flex items-center gap-3">
+                    <span class="text-2xl">🥺</span>
+                    <div>
+                        <h4 class="text-xs font-bold text-sky-300">Sad Lyrics</h4>
+                        <p class="text-[10px] text-slate-400">Fades away slowly</p>
+                    </div>
+                </div>
+                <div class="glass p-3 rounded-xl border border-amber-500/20 flex items-center gap-3">
+                    <span class="text-2xl">⚡</span>
+                    <div>
+                        <h4 class="text-xs font-bold text-amber-300">Beat Drop</h4>
+                        <p class="text-[10px] text-slate-400">Whole screen shakes gently</p>
+                    </div>
+                </div>
+                <div class="glass p-3 rounded-xl border border-emerald-500/20 flex items-center gap-3">
+                    <span class="text-2xl">😂</span>
+                    <div>
+                        <h4 class="text-xs font-bold text-emerald-300">Funny Parts</h4>
+                        <p class="text-[10px] text-slate-400">Popups bounce up/down</p>
+                    </div>
+                </div>
+                <div class="glass p-3 rounded-xl border border-red-500/20 flex items-center gap-3">
+                    <span class="text-2xl">🚫</span>
+                    <div>
+                        <h4 class="text-xs font-bold text-red-300">Angry Lyrics</h4>
+                        <p class="text-[10px] text-slate-400">Fake retro error popup</p>
+                    </div>
+                </div>
+                <div class="glass p-3 rounded-xl border border-indigo-500/20 flex items-center gap-3">
+                    <span class="text-2xl">🤫</span>
+                    <div>
+                        <h4 class="text-xs font-bold text-indigo-300">Quiet Beats</h4>
+                        <p class="text-[10px] text-slate-400">Tiny micro notifications</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Support / Creator Footer (Requirements: thilan kalhara, kofi, socials) -->
+    <footer class="glass border-t border-white/10 mt-12 py-8 px-6 text-slate-400 text-sm">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex flex-col gap-1 items-center md:items-start">
+                <span class="font-bold text-white tracking-wider">LyricalWindows Creator Suite</span>
+                <p class="text-xs text-slate-400">Designed & Handcrafted by <strong class="text-indigo-400">Thilan Kalhara</strong></p>
+            </div>
+            
+            <!-- Creator Social Network & Coffee links -->
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <a href="https://www.linkedin.com/in/thilan-kalhara-06a9b723a" target="_blank" class="p-2.5 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-slate-300 hover:text-white" title="LinkedIn Profile">
+                    <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+                </a>
+                <a href="https://github.com/Thilankalhara" target="_blank" class="p-2.5 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-slate-300 hover:text-white" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor"><path d="M12 .5C5.65.5.5 5.66.5 12.03c0 5.1 3.29 9.42 7.86 10.95.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.29-1.68-1.29-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.95.1-.75.4-1.25.73-1.53-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.73 0c2.18-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.26 5.67.42.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .3.2.66.79.55A11.53 11.53 0 0 0 23.5 12.03C23.5 5.66 18.35.5 12 .5z"/></svg>
+                </a>
+                <a href="mailto:thilankalhara@yahoo.com" class="p-2.5 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-slate-300 hover:text-white" title="Email Developer">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                </a>
+                
+                <!-- Support Me on Ko-Fi -->
+                <a href="https://ko-fi.com/thilankalhara" target="_blank" class="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-extrabold text-xs px-4 py-2.5 rounded-xl shadow-lg transform transition-all hover:scale-105">
+                    <i data-lucide="coffee" class="w-4 h-4 text-black fill-black"></i>
+                    <span>Buy me a Ko-Fi</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script Integrations & Functionality -->
+    <script src="script.js"></script>
+</body>
+</html>
